@@ -1,0 +1,41 @@
+.page-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+    gap: 1rem;
+    max-width: 630px;
+    margin: 0 auto;
+}
+
+#ingredient {
+    border-radius: 5px;
+    height: 30px;
+    width: 400px;
+    border: 1px rgb(176, 176, 176) solid;
+    padding: 0;
+    padding-left: 0.5rem;
+    margin: 0;
+}
+
+#submit-btn {
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+#submit-btn:hover {
+    background-color: #747474;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#submit-btn:active {
+    background-color: black;
+    transition: 0.5s;
+}
