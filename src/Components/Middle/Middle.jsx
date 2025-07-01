@@ -1,12 +1,10 @@
 import { useState } from "react"
-import "./Form-styling.css"
-import ingredients from "../../Data/ingredients.js"
-import IngredientList from "../IngredientList/IngredientList.jsx"
-import GetRecipe from "../GetRecipe/GetRecipe.jsx"
-import RecipeContent from "../RecipeContent/RecipeContent.jsx"
+import Form from "./Form/Form"
+import IngredientList from "./IngredientList/IngredientList"
+import GetRecipe from "./GetRecipe/GetRecipe"
+import RecipeContent from "./RecipeContent/RecipeContent"
 
-
-export default function Form(){
+export default function Middle(){
 
     // whether we got recipe/response from our LLM/AI Agent
     let [recipeShown, setRecipeShown] = useState(false)
@@ -42,16 +40,7 @@ export default function Form(){
 
     return (
         <>
-            <form action={handleSubmit} className="page-form">
-                <input className="inter-400" type="text" id="ingredient" name="ingredient" placeholder="e.g. cheese" />
-                {/* <input className="inter-400" type="submit" id="submit-btn" name="submit-btn" value="+ Add ingredient" /> */}
-                <button 
-                    className="inter-400" 
-                    id="submit-btn" 
-                    name="submit-btn"
-                >+ Add ingredient</button>
-            </form>
-
+            <Form handle_submit={handleSubmit} />
             {(ingredientsList.length !== 0) ?
             <>
                 <IngredientList 
@@ -61,8 +50,6 @@ export default function Form(){
                 {recipeShown ? <RecipeContent /> : null}
             </>
             : null}
-
-
         </>
     )
 }

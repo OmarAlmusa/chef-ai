@@ -1,14 +1,12 @@
 import './App.css'
 import Header from './Components/Header/Header'
-import Form from './Components/Form/Form'
-import IngredientList from './Components/IngredientList/IngredientList'
+import Middle from './Components/Middle/Middle'
 
 export default function App() {
   return (
     <>
       <Header />
-      <Form />
-      {/* <IngredientList /> */}
+      <Middle />
     </>
   )
 
