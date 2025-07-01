@@ -14,3 +14,8 @@
     padding-top: 2.5rem;
     padding-bottom: 1rem;
 }
+
+.generated-text {
+    align-self: flex-start;
+    text-align: justify;
+}

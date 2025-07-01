@@ -4,6 +4,7 @@ import IngredientList from "./IngredientList/IngredientList"
 import GetRecipe from "./GetRecipe/GetRecipe"
 import RecipeContent from "./RecipeContent/RecipeContent"
 import "./Middle-styling.css"
+import getRecipeHuggingFace from "../../ai/ai"
 
 export default function Middle(props){
 
@@ -15,15 +16,35 @@ export default function Middle(props){
     // whether we got recipe/response from our LLM/AI Agent
     let [recipeShown, setRecipeShown] = useState(false)
 
+    // let [ingredientsList, setIngredientsList] = useState(ingredients)
+    let [ingredientsList, setIngredientsList] = useState([])
     
-    function handleGetRecipeClick() {
-        setRecipeShown(prevState => !prevState)
+    // Recipe content
+    let [recipeContent, setRecipeContent] = useState("")
+
+    // Loading
+    let [loading, setLoading] = useState(false)
+    
+    async function handleGetRecipeClick() {
+        setLoading(true)
+        if(!recipeShown){
+            try {
+            const ingredients = ingredientsList.map(item => item.ingredient)
+            const result = await getRecipeHuggingFace(ingredients)
+            setRecipeContent(result)
+            setRecipeShown(true)
+            } catch(err) {
+                console.error("Error getting recipe: ", err)
+            } finally {
+                setLoading(false)
+            }
+
+        }
+        
     }
     
     // console.log(recipeShown)
 
-    // let [ingredientsList, setIngredientsList] = useState(ingredients)
-    let [ingredientsList, setIngredientsList] = useState([])
 
     function handleSubmit(formData){
         const newIngredient = formData.get("ingredient")
@@ -61,7 +82,7 @@ export default function Middle(props){
                     display_mode={props['display_mode']}
                     get_recipe_function={handleGetRecipeClick} /> 
                     : null}
-                    {recipeShown ? <RecipeContent /> : null}
+                    {recipeShown ? <RecipeContent recipe_content={recipeContent} /> : null}
                 </>
                 : null}
             </div>
