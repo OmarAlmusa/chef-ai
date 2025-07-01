@@ -1,3 +1,22 @@
+# Chef AI
+
+<p>Features</p>
+<ul>
+    <li>Toggle between dark and light mode</li>
+    <li>Typewriter effect on generated text</li>
+</ul>
+
+# Page views of both light and dark mode
+
+<img src="public/chef ai light mode.png" alt="light mode view" />
+<img src="public/chef ai dark mode.png" alt="dark mode view" />
+
+# Usage
+
+It's recommended to install NVM (Node version manager)
+
+Pull the git repo to your local machine, run `npm install` and then `npm run dev`
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

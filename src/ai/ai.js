@@ -17,45 +17,63 @@ function sleep(ms) {
 
 export default async function getRecipeHuggingFace(listOfIngredients){
 
-    await sleep(3000)
+    // await sleep(3000)
 
 
-    prompt = `
-    System: 
+    // prompt = `
+    // System: 
     
-    ${SYSTEM_PROMPT}
+    // ${SYSTEM_PROMPT}
 
-    User:
+    // User:
 
-    Based on the following ingredients:
+    // Based on the following ingredients:
 
-    ${listOfIngredients.join(", ")}
+    // ${listOfIngredients.join(", ")}
 
-    Please provide me with an appropriate recipe
-    `
+    // Please provide me with an appropriate recipe
+    // `
 
-    return prompt
+    // return prompt
 
-    // const chatCompletion = await client.chatCompletion({
-    //     provider: "auto",
-    //     model: "meta-llama/Llama-3.1-8B-Instruct",
-    //     messages: [
-    //         {
-    //             role: "system",
-    //             content: SYSTEM_PROMPT
-    //         },
-    //         {
-    //             role: "user",
-    //             content: `
-    //             Based on the following ingredients:
+    try {
+        const chatCompletion = await client.chatCompletion({
+            provider: "novita",
+            model: "meta-llama/Llama-3.1-8B-Instruct",
+            messages: [
+                {
+                    role: "system",
+                    content: SYSTEM_PROMPT
+                },
+                {
+                    role: "user",
+                    content: `
+                    Based on the following ingredients:
 
-    //             ${listOfIngredients.join(", ")}
+                    ${listOfIngredients.join(", ")}
 
-    //             Please provide me with an appropriate recipe
-    //             `,
-    //         },
-    //     ],
-    // });
+                    Please provide me with an appropriate recipe
+                    `,
+                },
+            ],
+        });
+
+        const message = chatCompletion?.choices?.[0]?.message?.content?.trim()
+
+        if (!message) {
+            console.warn("LLM returned empty content.")
+            return "⚠️ Failed to generate a recipe. Try again."
+        }
+
+        return message
+    } catch (err) {
+        console.error("HuggingFace API error:", err)
+        return "⚠️ Error connecting to AI service."
+    }
+
+    
+
+    // console.log(chatCompletion)
 
     // return chatCompletion.choices[0].message
 

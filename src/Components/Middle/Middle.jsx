@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Form from "./Form/Form"
 import IngredientList from "./IngredientList/IngredientList"
 import GetRecipe from "./GetRecipe/GetRecipe"
 import RecipeContent from "./RecipeContent/RecipeContent"
+import LoadingSpinner from "./LoadingSpinner/LoadingSpinner"
 import "./Middle-styling.css"
 import getRecipeHuggingFace from "../../ai/ai"
+import Swal from "sweetalert2"
 
 export default function Middle(props){
 
@@ -12,6 +14,8 @@ export default function Middle(props){
         backgroundColor: "#1c1c1c",
         color: "white" 
     }
+
+    const bottomRef = useRef(null)
 
     // whether we got recipe/response from our LLM/AI Agent
     let [recipeShown, setRecipeShown] = useState(false)
@@ -24,11 +28,17 @@ export default function Middle(props){
 
     // Loading
     let [loading, setLoading] = useState(false)
+
+    useEffect(()=>{
+        if (loading || recipeShown) {
+            bottomRef.current?.scrollIntoView({behavior: "smooth"})
+        }
+    }, [loading, recipeShown])
     
     async function handleGetRecipeClick() {
-        setLoading(true)
         if(!recipeShown){
             try {
+            setLoading(true)
             const ingredients = ingredientsList.map(item => item.ingredient)
             const result = await getRecipeHuggingFace(ingredients)
             setRecipeContent(result)
@@ -46,12 +56,39 @@ export default function Middle(props){
     // console.log(recipeShown)
 
 
-    function handleSubmit(formData){
-        const newIngredient = formData.get("ingredient")
-        // console.log(newIngredient)
+    // function handleSubmit(formData){
+    //     const newIngredient = formData.get("ingredient")
+    //     // console.log(newIngredient)
 
 
-        // console.log(`before: ${ingredientsList.map(i=>`${i['id']} ${i['ingredient']}`)}`)
+    //     // console.log(`before: ${ingredientsList.map(i=>`${i['id']} ${i['ingredient']}`)}`)
+
+    //     const updatedIngredients = [
+    //         ...ingredientsList,
+    //         {
+    //             id: ingredientsList.length + 1,
+    //             ingredient: newIngredient
+    //         }
+    //     ]
+    //     setIngredientsList(updatedIngredients)
+
+    //     // console.log(`after: ${updatedIngredients.map(i=>`${i['id']} ${i['ingredient']}`)}`)
+    // }
+
+    function handleSubmit(event){
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const newIngredient = formData.get("ingredient").trim()
+
+        if (!newIngredient){
+            Swal.fire({
+                icon: "warning",
+                title: "Empty Ingredient",
+                text: "Please enter a valid ingredient before submitting!",
+                confirmButtonColor: "#d33"
+            })
+            return
+        }
 
         const updatedIngredients = [
             ...ingredientsList,
@@ -62,7 +99,7 @@ export default function Middle(props){
         ]
         setIngredientsList(updatedIngredients)
 
-        // console.log(`after: ${updatedIngredients.map(i=>`${i['id']} ${i['ingredient']}`)}`)
+        event.target.reset()
     }
 
     return (
@@ -82,9 +119,14 @@ export default function Middle(props){
                     display_mode={props['display_mode']}
                     get_recipe_function={handleGetRecipeClick} /> 
                     : null}
-                    {recipeShown ? <RecipeContent recipe_content={recipeContent} /> : null}
+                    {
+                    loading 
+                    ? <LoadingSpinner /> 
+                    : (recipeShown ? <RecipeContent recipe_content={recipeContent} bottom_ref={bottomRef} /> : undefined)
+                    }
                 </>
                 : null}
+                <div ref={bottomRef}></div>
             </div>
         </>
     )
