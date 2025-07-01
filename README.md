@@ -4,6 +4,7 @@
 <ul>
     <li>Toggle between dark and light mode</li>
     <li>Typewriter effect on generated text</li>
+    <li>Uses HuggingFace API</li>
 </ul>
 
 # Page views of both light and dark mode
@@ -16,6 +17,8 @@
 It's recommended to install NVM (Node version manager)
 
 Pull the git repo to your local machine, run `npm install` and then `npm run dev`
+
+make sure you create a `.env` file and put your HuggingFace API token in it.
 
 # React + Vite
 
