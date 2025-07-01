@@ -1,0 +1,48 @@
+.get-recipe-full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 630px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: rgb(229, 225, 220);
+    border-radius: 10px;
+    gap: 6rem;
+}
+
+.text-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.text-section > h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.text-section > p {
+    padding: 0;
+    margin: 0;
+}
+
+.get-recipe-button {
+    height: 50px;
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(209, 116, 66);
+    color: white;
+}
+
+.get-recipe-button:hover {
+    cursor: pointer;
+    background-color: rgb(254, 181, 128);
+    transition: 0.5s;
+}
+
+.get-recipe-button:active {
+    background-color: rgb(209, 116, 66);
+    transition: 0.3s;
+    transform: scale(0.90);
+}

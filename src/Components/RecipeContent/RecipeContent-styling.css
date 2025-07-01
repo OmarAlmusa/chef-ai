@@ -1,0 +1,16 @@
+.recipe-full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 630px;
+}
+
+.recipe-full > h1 {
+    align-self: flex-start;
+    padding: 0;
+    margin: 0;
+    padding-top: 2.5rem;
+    padding-bottom: 1rem;
+}

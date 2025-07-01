@@ -38,4 +38,5 @@
 #submit-btn:active {
     background-color: black;
     transition: 0.5s;
+    transform: scale(0.90);
 }

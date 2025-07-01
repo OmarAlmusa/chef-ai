@@ -3,22 +3,25 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    /* height: 100vh; */
     max-width: 630px;
     margin: 0 auto;
-    padding-top: 2.5rem;
 }
 
 .ingredients-header {
     align-self: flex-start;
     padding: 0;
     margin: 0;
+    padding-top: 2.5rem;
     padding-bottom: 1rem;
 }
 
 .ingredients-list {
     list-style-type: disc;
-    height: 100vh;
+    /* height: 100vh; */
     align-self: flex-start;
     font-size: large;
+    min-width: 630px;
+    /* max-height: 30vh;
+    overflow-y: auto; */
 }
